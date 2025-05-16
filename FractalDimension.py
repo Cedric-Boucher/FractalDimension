@@ -41,5 +41,6 @@ def fractal_dimension(image: np.ndarray) -> np.float64:
             x.append(np.log(1/r))
             y.append(np.log(N_r))
             prev = N_r
+    assert len(x) == len(y)
     D = np.polyfit(x, y, 1)[0]  # D = lim r -> 0 log(Nr)/log(1/r)
     return D
