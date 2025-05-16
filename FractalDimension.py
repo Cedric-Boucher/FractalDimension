@@ -14,10 +14,10 @@ def fractal_dimension(image: np.ndarray) -> np.float64:
     """
     assert len(image.shape) == 2, f"Image must be 2-dimensional, but it was {len(image.shape)}-dimensional"
     assert image.shape[0] == image.shape[1], f"Image must be square, but dimensions were ({image.shape[0]}, {image.shape[1]})"
-    assert isinstance(image.max(), int), f"Image must be made of integer values, but was made of {type(image.max()).__name__}"
-    M: int = image.shape[0]  # image shape
-    G_min: int = image.min()  # lowest gray level (0=white)
-    G_max: int = image.max()  # highest gray level (255=black)
+    #assert isinstance(image.max(), int), f"Image must be made of integer values, but was made of {type(image.max()).__name__}"
+    M: int = int(image.shape[0])  # image shape
+    G_min: int = int(image.min())  # lowest gray level (0=white)
+    G_max: int = int(image.max())  # highest gray level (255=black)
     G: int = G_max - G_min + 1  # number of gray levels, typically 256
     prev: int = -1  # used to check for plateaus
     x: list[float] = list()
