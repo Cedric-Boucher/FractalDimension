@@ -20,7 +20,8 @@ def fractal_dimension(image: np.ndarray) -> np.float64:
     G_max: int = image.max()  # highest gray level (255=black)
     G: int = G_max - G_min + 1  # number of gray levels, typically 256
     prev: int = -1  # used to check for plateaus
-    r_Nr: list[tuple[float, int]] = []
+    x: list[float] = list()
+    y: list[int] = list()
 
     for L in range(2, (M // 2) + 1):
         h: int = max(1, G // (M // L))  # minimum box height is 1
@@ -37,9 +38,8 @@ def fractal_dimension(image: np.ndarray) -> np.float64:
             nBox_r = 2 * (stddev // h) + 1
             N_r += sum(nBox_r)
         if N_r != prev:  # check for plateauing
-            r_Nr.append((r, N_r))
+            x.append(np.log(1/r))
+            y.append(np.log(N_r))
             prev = N_r
-    x = np.array(np.log(1/r) for r, _ in r_Nr)  # log(1/r)
-    y = np.array(np.log(N_r) for _, N_r in r_Nr)  # log(Nr)
     D = np.polyfit(x, y, 1)[0]  # D = lim r -> 0 log(Nr)/log(1/r)
     return D
